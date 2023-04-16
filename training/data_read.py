@@ -38,21 +38,9 @@ from transformers import AutoTokenizer, AutoModelForSequenceClassification, Auto
 
 ################################# data directory ################################
 
-file_name = '300_data_pop.xlsx'
-
-import os
-
-current_dir = os.getcwd()
-data_dir = os.path.join(current_dir, "..", "data")
-data_path = os.path.join(data_dir, file_name)
-model_dir = os.path.join(current_dir, "..", "model")
-
-print("Data path:", data_path)
-
-########################### feature engineer #####################################
-
 import pandas as pd
 import numpy as np
+import os
 
 def calculate_sum_score(data):
     data['score'] = data['creditability'] + data['content'] + data['expression']
@@ -64,11 +52,22 @@ def norm_score(data):
     data['score_norm'] = (data['score'] - score_min) / (score_max - score_min)
     return data
 
+########################### feature engineer #####################################
+
+file_name = '300_data_pop.xlsx'
+
+current_dir = os.getcwd()
+data_dir = os.path.join(current_dir, "..", "data")
+data_path = os.path.join(data_dir, file_name)
+model_dir = os.path.join(current_dir, "..", "model")
+
+print("Data path:", data_path)
+
 # Load the data
 data = pd.read_excel(data_path)
 data = calculate_sum_score(data)
 data = norm_score(data)
-data = data[['comment', 'score_norm']]
+# data = data[['comment', 'score_norm']]
 
 #################################################################################
 
