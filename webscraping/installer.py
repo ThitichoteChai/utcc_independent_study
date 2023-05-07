@@ -1,5 +1,6 @@
 import subprocess
 import pkg_resources
+import os
 
 packages = ["beautifulsoup4", 
             "requests", 
@@ -9,7 +10,9 @@ packages = ["beautifulsoup4",
             "webdriver-manager", 
             "datefinder", 
             "pygame", 
-            "termcolor"]
+            "termcolor"
+            #,"logging"
+           ]
 
 def install_packages(packages):
     for package in packages:
@@ -27,3 +30,28 @@ def install_packages(packages):
     return True
 
 bool_package = install_packages(packages)
+
+import requests
+import time
+import csv
+import requests
+import re
+import logging
+import datetime
+import pygame
+import pandas as pd
+import numpy as np
+import lxml.html as lh
+from time import sleep
+from termcolor import colored
+from datetime import datetime
+from time import localtime, strftime
+from selenium import webdriver
+from colorama import Fore, Back, Style
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import TimeoutException
+from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.common.keys import Keys

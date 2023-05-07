@@ -15,6 +15,7 @@ from sklearn.model_selection import train_test_split, RandomizedSearchCV, GridSe
 
 ##### import important library###################################################
 
+import joblib
 import numpy as np
 import pandas as pd
 import re
@@ -26,6 +27,7 @@ import torch.optim as optim
 import torch.nn as nn 
 import torch.nn.functional as F
 from torch.utils.data import Dataset, DataLoader
+import time
 
 ##### import important library###################################################
 
@@ -35,6 +37,7 @@ import pandas as pd
 from torch.utils.data import DataLoader, TensorDataset
 from sklearn.model_selection import train_test_split
 from transformers import AutoTokenizer, AutoModelForSequenceClassification, AutoConfig
+from sklearn.model_selection import KFold
 
 ################################# data directory ################################
 
@@ -54,7 +57,7 @@ def norm_score(data):
 
 ########################### feature engineer #####################################
 
-file_name = '300_data_pop.xlsx'
+file_name = 'data.xlsx'
 
 current_dir = os.getcwd()
 data_dir = os.path.join(current_dir, "..", "data")
@@ -66,8 +69,8 @@ print("Data path:", data_path)
 # Load the data
 data = pd.read_excel(data_path)
 data = calculate_sum_score(data)
-data = norm_score(data)
-# data = data[['comment', 'score_norm']]
+# data = norm_score(data)
+data = data[['comment', 'score']]
 
 #################################################################################
 
@@ -126,7 +129,8 @@ def create_datasets(X, Y, vocab2index, batch_size):
             return torch.from_numpy(self.X[idx].astype(np.int32)), self.y[idx], self.X[idx][1]
 
     X_train, X_valid, y_train, y_valid = train_test_split(X, Y, test_size=0.2, random_state=42)
-
+    print(type(X_valid))
+          
     train_ds = CommonLitReadabiltyDataset(X_train, y_train)
     valid_ds = CommonLitReadabiltyDataset(X_valid, y_valid)
 
@@ -142,8 +146,11 @@ def create_datasets(X, Y, vocab2index, batch_size):
 #################################################################################
 
 from sklearn.model_selection import train_test_split
+from sklearn.utils import shuffle
 
 # split the dataset
+data = shuffle(data)
+
 train_data, test_data = train_test_split(data, test_size=0.2, random_state=42)
 
 print("data_size:", len(data))
