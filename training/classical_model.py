@@ -57,7 +57,7 @@ def evaluate_model(file_name, val_data):
     
     return result
 
-def linear_model(X_train, X_test, y_train, y_test, val_data, index):
+def linear_model(X_train, X_test, y_train, y_test, index):
     
     file_name = 'linear_model_' + str(index) + '.pkl'
     
@@ -105,7 +105,7 @@ def linear_model(X_train, X_test, y_train, y_test, val_data, index):
     # save model
     joblib.dump(grid_search_linear, os.path.join(model_dir, file_name))
 
-def svm_model(X_train, X_test, y_train, y_test, val_data, index):
+def svm_model(X_train, X_test, y_train, y_test, index):
     
     file_name = 'svm_model_' + str(index) + '.pkl'
     
@@ -155,7 +155,7 @@ def svm_model(X_train, X_test, y_train, y_test, val_data, index):
     # save model
     joblib.dump(grid_search_svm, os.path.join(model_dir, file_name))
     
-def tree_model(X_train, X_test, y_train, y_test, val_data, index):
+def tree_model(X_train, X_test, y_train, y_test, index):
     
     file_name = 'tree_model_' + str(index) + '.pkl'
     
@@ -204,7 +204,7 @@ def tree_model(X_train, X_test, y_train, y_test, val_data, index):
     # save model
     joblib.dump(grid_search_tree, os.path.join(model_dir, file_name))
     
-def knn_model(X_train, X_test, y_train, y_test, val_data, index):
+def knn_model(X_train, X_test, y_train, y_test, index):
     
     file_name = 'knn_model_' + str(index) + '.pkl'
     

@@ -43,8 +43,6 @@ data = pd.read_excel(data_path)
 data = calculate_sum_score(data)
 data = data[['comment', 'score']]
 
-data, val_data = train_test_split(data, test_size=0.2, random_state=42)
-
 kf = KFold(n_splits=5, shuffle=True, random_state=42)
 
 train_data_splits = []
@@ -67,7 +65,27 @@ train_2, test_2 = train_data_splits[1], test_data_splits[1]
 train_3, test_3 = train_data_splits[2], test_data_splits[2]
 train_4, test_4 = train_data_splits[3], test_data_splits[3]
 train_5, test_5 = train_data_splits[4], test_data_splits[4]
-print(f'Validation: val_data:', len(val_data))
+
+val1_path = os.path.join(data_dir, 'val_1.xlsx')
+val_1 = pd.read_excel(val1_path)
+
+val2_path = os.path.join(data_dir, 'val_2.xlsx')
+val_2 = pd.read_excel(val2_path)
+
+val3_path = os.path.join(data_dir, 'val_3.xlsx')
+val_3 = pd.read_excel(val3_path)
+
+val4_path = os.path.join(data_dir, 'val_4.xlsx')
+val_4 = pd.read_excel(val4_path)
+
+val5_path = os.path.join(data_dir, 'val_5.xlsx')
+val_5 = pd.read_excel(val5_path)
+
+print(f'Validation หูฟังไร้สาย: val_1:', len(val_1))
+print(f'Validation คีย์บอร์ดและเมาส์: val_2:', len(val_2))
+print(f'Validation ลำโพงบลูทูธ: val_3:', len(val_3))
+print(f'Validation สมาร์ทวอร์ช: val_4:', len(val_4))
+print(f'Validation เครื่องฟอกอากาศ: val_5:', len(val_5))
 
 import warnings
 warnings.filterwarnings("ignore", message="The parameter 'token_pattern' will not be used since 'tokenizer' is not None")
